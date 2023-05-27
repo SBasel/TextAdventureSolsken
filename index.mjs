@@ -9,32 +9,47 @@ const asciiArt = getAsciiArt();
 let name = "";
 let charWeapon = "";
 let charClass = "";
-let indexClass = "";
-let indexWeapon = "";
 
 if (readlineSync.keyInYN('Möchtest du dein Abenteuer starten? ')) {
   console.log('Spiel wird gestartet ...');
   if (readlineSync.keyInYN('Hast du einen Charakter? ')) {
     const filePath = './datei.json';
 
-    try {
-      const fileContent = await fs.readFile(filePath, 'utf8');
-      const data = JSON.parse(fileContent);
+    checkData(filePath);
+  }else{
+    newChar();
+  }
 
+
+  async function checkData(filePath) {
+  try {
+    await fs.access(filePath);
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    const data = JSON.parse(fileContent);
+
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      console.log("Keine Daten vorhanden. Ein neuer Charakter wird erstellt.");
+      newChar();
+    } else {
       name = data.name;
       charClass = data.class;
       charWeapon = data.weapon;
-    } catch (error) {
+
+      console.log(`Hallo ${name}, du erwachst an der dir bekannten Kreuzung.`);
+      askDirection();
+    }
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log("Keine Daten vorhanden. Ein neuer Charakter wird erstellt.");
+      newChar();
+    } else {
       console.log('Es gab einen Fehler beim Laden der Charakterdaten.');
       console.error(error);
       process.exit(1);
     }
-
-    console.log(`Hallo ${name}, du erwachst an der dir bekannten Kreuzung.`);
-    askDirection();
-  } else {
-    newChar();
   }
+}
+
 
 function showNextStep() {
   const text = "Du stehst an einer idyllischen Kreuzung an einem strahlend sonnigen Tag. Die warmen Sonnenstrahlen streicheln dein Gesicht und erfüllen die Luft mit einer erfrischenden Leichtigkeit.\n\nBeim Blick nach Süden erblickst du eine geschäftige Stadt, die mit pulsierendem Leben und faszinierenden Möglichkeiten lockt. Die Skyline erhebt sich majestätisch, und das Summen der Menschen und die Rufe der Markthändler dringen zu dir herüber.\n\nIm Westen erstrecken sich endlose Felder bis zum Horizont, deren goldenen Halme im sanften Wind wiegen. Ein malerisches kleines Dorf schmiegt sich zwischen den Feldern, und aus der Ferne hörst du das fröhliche Lachen der Dorfbewohner und das Klappern der Pferdewagen, die ihre Ernte nach Hause bringen.\n\nDein Blick nach Norden fällt auf einen geheimnisvollen Wald, der dich mit seinem dichten Blätterdach und den sanft schimmernden Sonnenstrahlen, die durch die Baumkronen dringen, fasziniert. Die Stille wird nur von den Klängen der Vögel und dem leisen Rascheln der Tiere unterbrochen. Du spürst die verborgene Magie des Waldes und das Versprechen von Abenteuern, die darauf warten, entdeckt zu werden.\n\nIm Osten erstrecken sich majestätische Gebirgsketten, deren schroffen Gipfel den Himmel zu berühren scheinen. Ihre imposante Präsenz erfüllt dich mit Ehrfurcht, während du die schroffen Klippen und die glitzernden Wasserfälle bewunderst, die ihren Weg hinabstürzen. Der Anblick der majestätischen Berge erinnert dich an die Grenzen der Welt und weckt das Verlangen nach epischen Entdeckungen und mutigen Expeditionen.\n\nStehend an dieser malerischen Kreuzung fühlst du das Kribbeln der Abenteuerlust in deinen Adern. Es liegt an dir, welchen Weg du einschlagen wirst und welche Geheimnisse und Erlebnisse dich auf deiner Reise erwarten.";
