@@ -15,7 +15,7 @@ let indexWeapon = "";
 if (readlineSync.keyInYN('Möchtest du dein Abenteuer starten? ')) {
   console.log('Spiel wird gestartet ...');
   if (readlineSync.keyInYN('Hast du einen Charakter? ')) {
-    const filePath = '/home/dci-student/DCI Folder/JS Projekt/datei.json';
+    const filePath = 'datei.json';
 
     try {
       const fileContent = await fs.readFile(filePath, 'utf8');
@@ -121,7 +121,7 @@ function waldTempel() {
 }
 
 function openInventoryWald() {
-  const inventoryFilePath = '/home/dci-student/DCI Folder/JS Projekt/inventar.json';
+  const inventoryFilePath = 'inventar.json';
 
   try {
     const inventoryContent = fsBase.readFileSync(inventoryFilePath, 'utf8');
@@ -311,7 +311,7 @@ function drachenHöhle() {
 
 
 function openInventoryHöhle(){
-const inventoryFilePath = '/home/dci-student/DCI Folder/JS Projekt/inventar.json';
+const inventoryFilePath = 'inventar.json';
 
   try {
     const inventoryContent = fsBase.readFileSync(inventoryFilePath, 'utf8');
@@ -536,7 +536,7 @@ async function getSmaragd() {
 }
 
 async function openInventoryStadt() {
-  const inventoryFilePath = '/home/dci-student/DCI Folder/JS Projekt/inventar.json';
+  const inventoryFilePath = 'inventar.json';
 
   try {
     const inventoryContent = fsBase.readFileSync(inventoryFilePath, 'utf8');
@@ -708,7 +708,7 @@ async function flussRätsel(){
 }
 
 async function openInventoryDorf() {
-  const inventoryFilePath = '/home/dci-student/DCI Folder/JS Projekt/inventar.json';
+  const inventoryFilePath = 'inventar.json';
 
   try {
     const inventoryContent = fsBase.readFileSync(inventoryFilePath, 'utf8');
@@ -818,7 +818,7 @@ function newChar() {
       const jsonData = JSON.stringify(data);
 
       // Pfad zur Datei
-      const filePath = '/home/dci-student/DCI Folder/JS Projekt/datei.json';
+      const filePath = 'datei.json';
 
       // Schreibe die Daten in die JSON-Datei
       fs.writeFileSync(filePath, jsonData);
