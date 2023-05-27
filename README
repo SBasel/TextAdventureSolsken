@@ -1,0 +1,7 @@
+Wilkommen zu meinem Text Adventure.
+
+Um zu starten clone diese Datei in einen Ordner.
+
+Rufe den Ordner im Terminal auf und starte das Abenteuer mit:
+
+node index.mjs
