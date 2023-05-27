@@ -15,7 +15,7 @@ let indexWeapon = "";
 if (readlineSync.keyInYN('Möchtest du dein Abenteuer starten? ')) {
   console.log('Spiel wird gestartet ...');
   if (readlineSync.keyInYN('Hast du einen Charakter? ')) {
-    const filePath = 'datei.json';
+    const filePath = './datei.json';
 
     try {
       const fileContent = await fs.readFile(filePath, 'utf8');
@@ -30,12 +30,10 @@ if (readlineSync.keyInYN('Möchtest du dein Abenteuer starten? ')) {
       process.exit(1);
     }
 
-    console.log('Du erwachst an der dir bekannten Kreuzung.');
+    console.log(`Hallo ${name}, du erwachst an der dir bekannten Kreuzung.`);
     askDirection();
   } else {
     newChar();
-    console.log('Spiel endet...');
-    // Do something...
   }
 
 function showNextStep() {
@@ -57,7 +55,7 @@ function showNextStep() {
     }, delay);
   }
 
-  typeText(text, 25);
+  typeText(text, 10);
 }
 
 function askDirection() {
@@ -121,7 +119,7 @@ function waldTempel() {
 }
 
 function openInventoryWald() {
-  const inventoryFilePath = 'inventar.json';
+  const inventoryFilePath = './inventar.json';
 
   try {
     const inventoryContent = fsBase.readFileSync(inventoryFilePath, 'utf8');
@@ -311,7 +309,7 @@ function drachenHöhle() {
 
 
 function openInventoryHöhle(){
-const inventoryFilePath = 'inventar.json';
+const inventoryFilePath = './inventar.json';
 
   try {
     const inventoryContent = fsBase.readFileSync(inventoryFilePath, 'utf8');
@@ -708,7 +706,7 @@ async function flussRätsel(){
 }
 
 async function openInventoryDorf() {
-  const inventoryFilePath = 'inventar.json';
+  const inventoryFilePath = './inventar.json';
 
   try {
     const inventoryContent = fsBase.readFileSync(inventoryFilePath, 'utf8');
@@ -818,10 +816,11 @@ function newChar() {
       const jsonData = JSON.stringify(data);
 
       // Pfad zur Datei
-      const filePath = 'datei.json';
+      const filePath = './datei.json';
 
       // Schreibe die Daten in die JSON-Datei
-      fs.writeFileSync(filePath, jsonData);
+      fsBase.writeFileSync(filePath, jsonData);
+      fsBase.writeFileSync('./inventar.json', JSON.stringify([]));
 
       console.log('Charakter Daten wurden erfolgreich gespeichert.');
       console.log(`Name: ${name}`);
@@ -841,8 +840,7 @@ function newChar() {
       showNextStep();
     }, 3000);
   } else {
-    console.log('Spiel endet...');
-    // Do something...
+    newChar();
     }
   }
 }
